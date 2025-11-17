@@ -53,6 +53,8 @@ spec:
           value: "nextcloud"
         - name: NEXTCLOUD_ADMIN_PASSWORD
           value: "nextcloud"
+        - name: NEXTCLOUD_TRUSTED_DOMAINS
+          value: "nextcloud-asifm-test.apps.lon2-1.hyve.cloud"
         # readinessProbe:
         #   failureThreshold: 3
         #   httpGet:
