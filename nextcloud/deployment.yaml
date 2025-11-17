@@ -1,4 +1,5 @@
 apiVersion: apps/v1
+oooooooooooooooooooooooooooooooooooooi
 kind: Deployment
 metadata:
   annotations:
@@ -23,7 +24,7 @@ spec:
       containers:
       - name: nextcloud
         imagePullPolicy: Always
-        image: quay.io/tccr/nextcloud-fpm:latest
+        image: quay.io/lib/nextcloud:latest
         # livenessProbe:
         #   failureThreshold: 3
         #   httpGet:
@@ -48,6 +49,10 @@ spec:
         - name: MYSQL_USER
           value: "nextcloud"
         - name: MYSQL_PASSWORD
+          value: "nextcloud"
+        - name: NEXTCLOUD_ADMIN_USER
+          value: "nextcloud"
+        - name: NEXTCLOUD_ADMIN_PASSWORD
           value: "nextcloud"
         # readinessProbe:
         #   failureThreshold: 3
