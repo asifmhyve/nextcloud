@@ -43,7 +43,7 @@ spec:
           protocol: TCP
         volumeMounts:
           - name: prometheus-data
-            mounthPath: /prometheus
+            mountPath: /prometheus
         # readinessProbe:
         #   failureThreshold: 3
         #   httpGet:
