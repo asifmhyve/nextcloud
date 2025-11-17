@@ -3,29 +3,25 @@ kind: Deployment
 metadata:
   annotations:
   labels:
-    app: nextcloud
+    app: prometheus 
     app.kubernetes.io/component: web
-    app.kubernetes.io/instance: nextcloud
-    app.kubernetes.io/name: nextcloud
-    app.kubernetes.io/part-of: nextcloud 
-    app.openshift.io/runtime: php
+    app.kubernetes.io/instance: prometheus 
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/part-of: prometheus
+    app.openshift.io/runtime: python
   name: nextcloud
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nextcloud
+      app: prometheus
   template:
     metadata:
       labels:
-        app: nextcloud
+        app: prometheus
     spec:
-      # securityContext:
-      #   runAsUser: 1000
-      #   runAsGroup: 1000
-      #   fsGroup: 1000
       containers:
-      - name: nextcloud
+      - name: prometheus
         imagePullPolicy: Always
         image: quay.io/prometheus/prometheus:latest
         # livenessProbe:

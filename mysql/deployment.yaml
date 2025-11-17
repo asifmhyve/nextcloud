@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: mysql 
+    app.kubernetes.io/component: web
+    app.kubernetes.io/instance: mysql 
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/part-of: mysql
+    app.openshift.io/runtime: database
+  name: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        imagePullPolicy: Always
+        image: quay.io/sclorg/mariadb-105-c9s:latest
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+          - name: mysql-data
+            mountPath: /var/lib/mysql/data
+        env: 
+          - name: MYSQL_USER
+            value: "nextcloud"
+          - name: MYSQL_PASSWORD
+            value: "nextcloud"
+          - name: MYSQL_DATABASE
+            value: "nextcloud"
+      volumes: 
+        - name: mysql-data
+          emptyDir: {}
