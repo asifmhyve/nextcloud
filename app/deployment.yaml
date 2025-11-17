@@ -23,30 +23,30 @@ spec:
       containers:
       - name: nextcloud
         imagePullPolicy: Always
-        image: quay.io/reavessm/nextcloud:latest
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /status.php
-            port: 80
-            scheme: HTTP
-          initialDelaySeconds: 45
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
+        image: quay.io/truecharts/nextcloud:40.0.5
+        # livenessProbe:
+        #   failureThreshold: 3
+        #   httpGet:
+        #     path: /status.php
+        #     port: 80
+        #     scheme: HTTP
+        #   initialDelaySeconds: 45
+        #   periodSeconds: 10
+        #   successThreshold: 1
+        #   timeoutSeconds: 1
         ports:
         - containerPort: 80
           protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /status.php
-            port: 80
-            scheme: HTTP
-          initialDelaySeconds: 45
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 5
+        # readinessProbe:
+        #   failureThreshold: 3
+        #   httpGet:
+        #     path: /status.php
+        #     port: 80
+        #     scheme: HTTP
+        #   initialDelaySeconds: 45
+        #   periodSeconds: 10
+        #   successThreshold: 1
+        #   timeoutSeconds: 5
         env:
           - name: NEXTCLOUD_ADMIN_USER
             value: "admin"
