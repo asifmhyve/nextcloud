@@ -8,5 +8,5 @@ resources:
 - pvc.yaml
 - configmap-nginx.yml
 
-commonLabels: 
+label: 
   app: nextcloud
