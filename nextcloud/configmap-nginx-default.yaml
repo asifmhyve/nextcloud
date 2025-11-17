@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    worker_processes 1;
+
+    error_log /dev/stderr warn;
+    access_log /dev/stdout;
+    pid /tmp/nginx.pid;
+
+    events {
+	    worker_connections 40000;
+    }
+
+    http {
+	    include mime.types;
+	    default_type application/octet-stream;
+
+	    sendfile	on;
+	    keepalive_timeout	600s;
+
+	    server {
+		    listen 8080;
+		    listen 	[::]:8080;
+
+		    server_name _;
+
+        	    root /var/www/html;
+        	    index index.php;
+
+        	    location / {
+            	    try_files $uri $uri/ /index.php$request_uri;
+        	    }
+
+        	    location ~ \.php$ {
+            	    include fastcgi_params;
+            	    fastcgi_pass 127.0.0.1:9000;
+            	    fastcgi_index index.php;
+            	    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        	    }
+    	    }
+    }
