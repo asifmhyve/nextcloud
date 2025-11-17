@@ -7,6 +7,3 @@ resources:
 - route.yaml
 - pvc.yaml
 - configmap-nginx.yml
-
-labels: 
-  app: nextcloud
