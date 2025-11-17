@@ -35,24 +35,32 @@ spec:
         #   successThreshold: 1
         #   timeoutSeconds: 1
         ports:
-        - containerPort: 80
+        - containerPort: 443
           protocol: TCP
         volumeMounts:
         - name: nextcloud-data
-          mountPath: /var/www/html
+          mountPath: /data
+        - name: nextcloud-config
+          mountPath: /config
         env:
-        - name: MYSQL_HOST
-          value: mysql
-        - name: MYSQL_DATABASE
-          value: "nextcloud"
-        - name: MYSQL_USER
-          value: "nextcloud"
-        - name: MYSQL_PASSWORD
-          value: "nextcloud"
-        - name: NEXTCLOUD_ADMIN_USER
-          value: "nextcloud"
-        - name: NEXTCLOUD_ADMIN_PASSWORD
-          value: "nextcloud"
+        # - name: MYSQL_HOST
+        #   value: mysql
+        # - name: MYSQL_DATABASE
+        #   value: "nextcloud"
+        # - name: MYSQL_USER
+        #   value: "nextcloud"
+        # - name: MYSQL_PASSWORD
+        #   value: "nextcloud"
+        # - name: NEXTCLOUD_ADMIN_USER
+        #   value: "nextcloud"
+        # - name: NEXTCLOUD_ADMIN_PASSWORD
+        #   value: "nextcloud"
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Etc/UTC"
         # readinessProbe:
         #   failureThreshold: 3
         #   httpGet:
@@ -65,4 +73,6 @@ spec:
         #   timeoutSeconds: 5
       volumes: 
       - name: nextcloud-data
+        emptyDir: {}
+      - name: nextcloud-config
         emptyDir: {}
