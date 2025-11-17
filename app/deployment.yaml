@@ -27,7 +27,7 @@ spec:
         livenessProbe:
           failureThreshold: 3
           httpGet:
-            path: /
+            path: /status.php
             port: 80
             scheme: HTTP
           initialDelaySeconds: 45
@@ -40,10 +40,15 @@ spec:
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            path: /
+            path: /status.php
             port: 80
             scheme: HTTP
           initialDelaySeconds: 45
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 5
+        env:
+          - name: NEXTCLOUD_ADMIN_USER
+            value: "admin"
+          - name: NEXTCLOUD_ADMIN_PASSWORD
+            value: "admin"
