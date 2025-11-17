@@ -23,7 +23,7 @@ spec:
       containers:
       - name: nextcloud
         imagePullPolicy: Always
-        image: quay.io/linuxserver.io/nextcloud:latest
+        image: quay.io/tccr/nextcloud-imaginary:latest
         # livenessProbe:
         #   failureThreshold: 3
         #   httpGet:
@@ -35,32 +35,24 @@ spec:
         #   successThreshold: 1
         #   timeoutSeconds: 1
         ports:
-        - containerPort: 443
+        - containerPort: 80
           protocol: TCP
         volumeMounts:
         - name: nextcloud-data
-          mountPath: /data
-        - name: nextcloud-config
-          mountPath: /config
+          mountPath: /var/www/hml
         env:
-        # - name: MYSQL_HOST
-        #   value: mysql
-        # - name: MYSQL_DATABASE
-        #   value: "nextcloud"
-        # - name: MYSQL_USER
-        #   value: "nextcloud"
-        # - name: MYSQL_PASSWORD
-        #   value: "nextcloud"
-        # - name: NEXTCLOUD_ADMIN_USER
-        #   value: "nextcloud"
-        # - name: NEXTCLOUD_ADMIN_PASSWORD
-        #   value: "nextcloud"
-        - name: PUID
-          value: "1000"
-        - name: PGID
-          value: "1000"
-        - name: TZ
-          value: "Etc/UTC"
+        - name: MYSQL_HOST
+          value: mysql
+        - name: MYSQL_DATABASE
+          value: "nextcloud"
+        - name: MYSQL_USER
+          value: "nextcloud"
+        - name: MYSQL_PASSWORD
+          value: "nextcloud"
+        - name: NEXTCLOUD_ADMIN_USER
+          value: "nextcloud"
+        - name: NEXTCLOUD_ADMIN_PASSWORD
+          value: "nextcloud"
         # readinessProbe:
         #   failureThreshold: 3
         #   httpGet:
@@ -73,6 +65,4 @@ spec:
         #   timeoutSeconds: 5
       volumes: 
       - name: nextcloud-data
-        emptyDir: {}
-      - name: nextcloud-config
         emptyDir: {}
