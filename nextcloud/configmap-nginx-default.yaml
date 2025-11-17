@@ -6,6 +6,8 @@ data:
   nginx.conf: |
     worker_processes 1;
 
+    error_log /dev/stderr warn;
+
     events {
         worker_connections 1024;
     }
