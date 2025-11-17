@@ -6,4 +6,4 @@ resources:
 - service.yaml
 - route.yaml
 - pvc.yaml
-- configmap-nginx.yml
+- configmap-nginx.yaml
