@@ -7,7 +7,6 @@ data:
     worker_processes 1;
 
     error_log /dev/stderr warn;
-    access_log /dev/stdout;
     pid /tmp/nginx.pid;
 
     events {
