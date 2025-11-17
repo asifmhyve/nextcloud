@@ -23,7 +23,7 @@ spec:
       containers:
       - name: nextcloud
         imagePullPolicy: Always
-        image: quay.io/lib/nextcloud:latest
+        image: quay.io/truecharts/nextcloud:40.0.5
         # livenessProbe:
         #   failureThreshold: 3
         #   httpGet:
