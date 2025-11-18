@@ -39,7 +39,7 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: nextcloud-data
-          mountPath: /var/www/hml
+          mountPath: /var/www/html
         env:
         - name: MYSQL_HOST
           value: mysql
