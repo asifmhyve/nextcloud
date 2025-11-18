@@ -11,7 +11,7 @@ metadata:
     app.openshift.io/runtime: python
   name: nextcloud
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: nextcloud
