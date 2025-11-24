@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: prometheus
     app.openshift.io/runtime: python
-  name: nextcloud
+  name: prometheus
 spec:
   replicas: 1
   selector:
