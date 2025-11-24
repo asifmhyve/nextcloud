@@ -1,13 +1,66 @@
-apiVersion: route.openshift.io/v1
-kind: Route
 metadata:
-  labels:
+  labels: 
     app: prometheus
   name: prometheus
 spec:
-  port:
+  port: 
     targetPort: 9090-tcp
   to:
     kind: Service
     name: prometheus
-    weight: 100
+  tls:
+    termination: edge
+    key: |-
+      -----BEGIN PRIVATE KEY-----
+      MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDHa2I/SoyPQPxu
+      l5g9AqdgCKAyl72QsRpZcOum4BDUiGmbEi/DH091PkfMBYdeieP0z7+VProZELGH
+      mQQqP6LWCpHGEP6/WfGEJE4Ebuwxm0nJFr1oDn8EIOqm+CrCBUV+dRQehq1V3Fon
+      TAs+yRAe7ygytOxQI8cz+oPsA/KFjMG5zQoFdUOa10Bz/btW95zXksxKtLi7Cb0H
+      Ifd2kJ2Gcm03IloqscTJKlFXu7o5MK817oXxbtX8slaK9IkqMEv4VZ+xSS5SVJlq
+      S8tv5mhIJlhEKQDmY17NZsGyfSkSc+HaOgeQV6s0Su0taTfr3g26bSTQ1NumcYq7
+      jtwFplzbAgMBAAECggEAPP+hXUfB5/3SWUfAlwTtSqhIzEDzCMPLkglC49gM/d2+
+      I+NzvaUhqnTDBGq6hhX6pwM3EIFP7mPXUelhx0SQ3BT+kw3WxpROFoP+Y0fEssXT
+      05FDnYU1n/8rl6g4eAGhyLUqUs4STj2pS/TsSae56SRxcNU7paXUBJe/650nfWbO
+      79GB0wzLYEpcEkR+PTSdnYGFYlth9EwQnc81/2woggz69SvJBY18CnrkY+ATe4wa
+      PS52yIT5IYjjIpj7oG0q87q6soyq9uvFrDO7em1VsGZMeVVkFED/F+PoR8gMphYN
+      FsAdBRcH03/u1JqBfYK10nPKDB1E+bG4lDfo9s+YhQKBgQDrp08zXmIFodzGhL0v
+      j6KZVThO1A+9nI3AjrZXFPkIYIrn813IeYXp2xb68Bo/wMAyzR6I5VPk5Z91T+LA
+      AYE952zXg74HAExbt/y6/ki55RljRsXDtv5lYZoVisO6r6nPwnvOq99gvA5aNuMV
+      7QeHHm5En20BoSGQW+Bruk3AvQKBgQDYoy+ur+4LCYAMkwy3tly5DoZomSwF4dTc
+      voGOOf1JRujNyrB/g/8LARdkzMdHw65UNHH5UY2ki3fve4uWDAK9hmgXEBwXDMg8
+      KhbT76Eda/iIUbSRXXtETsDgfetybq6tFqlQVGuPWjKSGbvZkyf7vjFtUaPoxVsv
+      1mGuLSmpdwKBgQCmuEHiV94FmhR2JqcqJPamgJJLwuA4B7CKEO2UAnSFprffjmBF
+      WySQ5L4HXyNTA213A4Oc2pJWGNaNyqzjpqznPPnWJ5Cjp2ReZ3bYXNrbGeiyQfnc
+      k3S8CSdYIkqDo5ACOtgYyaRJ7gJBdR+H/aAbyj29MwWN54+1cCsATFiCCQKBgQDW
+      HYPVPiEiW4Np6jUZpm5CoW6LF0kBj1EZ1FisP/htYl5ad8i2X7nGIJAEmrkj3u4A
+      X81+Q/Kg/Q/PbOZrqPdUZvGeSdfZmFKX1Gm3kxJEyCBea5LyUdixjLzppMr+0RJo
+      FQvHT4j3qIhvCmw2AVH1aOflSlmciOM1hsgIpK6WxQKBgQCwjURx3gnwf9QoVAjS
+      V3fOhhPGg6Iw3aVo3GagkBLH9nSyYZvGAhmgqoL6Fj6HDqBjiWMVIjNa2izm69A2
+      euoVK1BgHVRQpPn5BGkjMPQV14T6eDi665Omyvb0dTwROIm/ispbQNskBuzC9tN6
+      0moapLxuq0ZtU5m9nPIj1pkk3A==
+      -----END PRIVATE KEY-----
+    certificate: |-
+      -----BEGIN CERTIFICATE-----
+      MIID9zCCAt+gAwIBAgIUXMki4adzS952reInl2O2IpjlcwQwDQYJKoZIhvcNAQEL
+      BQAwgYoxCzAJBgNVBAYTAkdCMREwDwYDVQQIDAhCcmlnaHRvbjERMA8GA1UEBwwI
+      QnJpZ2h0b24xETAPBgNVBAoMCEh5dmUgTHRkMQswCQYDVQQLDAJJVDE1MDMGA1UE
+      AwwscHJvbWV0aGV1cy1hc2lmbS10ZXN0LmFwcHMubG9uMi0xLmh5dmUuY2xvdWQw
+      HhcNMjUxMTI0MTIyOTIyWhcNMjYxMTI0MTIyOTIyWjCBijELMAkGA1UEBhMCR0Ix
+      ETAPBgNVBAgMCEJyaWdodG9uMREwDwYDVQQHDAhCcmlnaHRvbjERMA8GA1UECgwI
+      SHl2ZSBMdGQxCzAJBgNVBAsMAklUMTUwMwYDVQQDDCxwcm9tZXRoZXVzLWFzaWZt
+      LXRlc3QuYXBwcy5sb24yLTEuaHl2ZS5jbG91ZDCCASIwDQYJKoZIhvcNAQEBBQAD
+      ggEPADCCAQoCggEBAMdrYj9KjI9A/G6XmD0Cp2AIoDKXvZCxGllw66bgENSIaZsS
+      L8MfT3U+R8wFh16J4/TPv5U+uhkQsYeZBCo/otYKkcYQ/r9Z8YQkTgRu7DGbSckW
+      vWgOfwQg6qb4KsIFRX51FB6GrVXcWidMCz7JEB7vKDK07FAjxzP6g+wD8oWMwbnN
+      CgV1Q5rXQHP9u1b3nNeSzEq0uLsJvQch93aQnYZybTciWiqxxMkqUVe7ujkwrzXu
+      hfFu1fyyVor0iSowS/hVn7FJLlJUmWpLy2/maEgmWEQpAOZjXs1mwbJ9KRJz4do6
+      B5BXqzRK7S1pN+veDbptJNDU26ZxiruO3AWmXNsCAwEAAaNTMFEwHQYDVR0OBBYE
+      FKMoqJnWc1Yjejus9CRtVmgo1eyuMB8GA1UdIwQYMBaAFKMoqJnWc1Yjejus9CRt
+      Vmgo1eyuMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAG5M9aSG
+      LpATulWNLSIhHqf9hP2q1kkGYesZzaA69fv1Zhh22ojU4R8WJbvCmyqP7FrSqAdI
+      88HOiQORvGuS11hEHFwof+bsxGAywSKOCqsPkLxBvfV7iSSNsvwzwjTD8jPqRhL8
+      w1+iWlqXdon+RtBOu4bPEQLIBrmAKWugNk9mPp7zKtE+nV9flAAGVyyfRYZPvMuz
+      Z6Qp6dl0aDdRZ0mouw/gF+moQMB/W2Io/WSg2dIEofLr6EZlNTOkPjtI41X8rHZp
+      T+hy3h8vqtsC/cLxN5SBmaocAtIz7p1YRhVEOhLEpy83xHMAT09LONq7e4M10ife
+      3Fu+CWF4uDYvoPE=
+      -----END CERTIFICATE-----
