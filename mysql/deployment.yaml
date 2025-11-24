@@ -38,4 +38,10 @@ spec:
             value: "nextcloud"
       volumes: 
         - name: mysql-data
-          emptyDir: {}
+          mountPath: /var/lib/mysql
+
+      volumes: 
+      - name: mysql-data
+        persistentVolumeClaim:
+          claimName: mysql-pvc
+
