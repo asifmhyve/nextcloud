@@ -1,0 +1,8 @@
+resources:
+- csrx_configmap.yaml
+- csrx_secret.yaml
+- secret.yaml
+- serviceaccount.yaml
+- nad1.yaml
+- nad2.yaml
+- deployment.yaml

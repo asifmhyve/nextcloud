@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "asifm-test-csrx-cfm"
+data:
+  csrx_config: |
+    interfaces {
+
+      ge-0/0/0 {
+        unit 0 {
+          family inet {
+            address 185.161.27.12/29;
+          }
+        }
+      }
+
+      ge-0/0/1 {
+        unit 0 {
+          family inet {
+            address 10.10.201.254/24;
+          }
+        }
+      }
+    }
+
+    system {
+      services {
+        ssh {
+          root-login deny;
+        }
+      }
+    }
+
+    routing-options {
+      static {
+        route 0.0.0.0/0 next-hop 185.161.27.9/32;
+      }
+    }
+
+    security {
+      address-book {
+        global {
+          address allowed-host 185.249.70.2/32;
+          address nat-inside 10.10.201.5/32;
+        }
+      }
+
+      nat {
+        static {
+          rule-set STATIC-NAT {
+            from zone untrust;
+            rule STATIC-RULE {
+              match {
+                destination-address 185.161.27.12/32;
+              }
+              then {
+                static-nat {
+                  prefix {
+                    10.10.201.5/32;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      policies {
+        from-zone trust to-zone untrust {
+          policy trust-to-untrust {
+            match {
+              source-address any;
+              destination-address any;
+              application any;
+            }
+            then {
+              permit;
+            }
+          }
+        }
+        from-zone untrust to-zone trust {
+          policy untrust-to-trust-dnat {
+            match {
+              source-address allowed-host;
+              destination-address nat-inside;
+              application any;
+            }
+            then {
+              permit;
+            }
+          }
+        }
+        default-policy {
+          deny-all;
+        }
+      }
+      zones {
+        security-zone trust {
+          host-inbound-traffic {
+            system-services {
+              ping;
+            }
+          }
+          interfaces {
+            ge-0/0/1.0;
+          }
+        }
+        security-zone untrust {
+          host-inbound-traffic {
+            system-services {
+              ping;
+            }
+          }
+          interfaces {
+            ge-0/0/0.0;
+          }
+        }
+      }
+    }

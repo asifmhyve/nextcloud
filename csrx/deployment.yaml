@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csrx-deployment
+  labels:
+    app: csrx
+spec:
+  securityContext:
+    privileged: true
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csrx
+  template:
+    metadata:
+      labels:
+        app: csrx
+      annotations:
+        k8s.v1.cni.cncf.io/networks: "{{ [
+            { 'name': 'vlan177' },
+            { 'name': 'secondary-overlay' }
+        ] | to_json }}"
+    spec:
+      restartPolicy: Always
+      serviceAccountName: csrx-sa
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: csrx
+          image: 'default-route-openshift-image-registry.apps.lon2-1.hyve.cloud/asifm-test/junos-csrx-docker:24.4R2.21'
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          env:
+            - name: CSRX_HUGEPAGES
+              value: "no"
+            - name: CSRX_FORWARD_MODE
+              value: "routing"
+            - name: CSRX_AUTO_ASSIGN_IP
+              value: "yes"
+            - name: CSRX_JUNOS_CONFIG
+              value: /var/jail/csrx_config
+            - name: CSRX_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: csrxrootpasswd
+                  key: CSRX_ROOT_PASSWORD
+          volumeMounts:
+            - name: disk
+              mountPath: /dev
+            - name: config
+              mountPath: /var/jail
+      volumes:
+        - name: disk
+          hostPath:
+            path: /dev
+            type: Directory
+        - name: config
+          configMap:
+            name: "asifm-test-csrx-cfm"
+            items:
+              - key: csrx_config
+                path: csrx_config
+            defaultMode: 420
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
