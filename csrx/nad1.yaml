@@ -2,8 +2,6 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: "vlan177"
-labels:
-  app.kubernetes.io/instance: csrx
 spec:
   config: |-
     {
