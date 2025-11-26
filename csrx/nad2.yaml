@@ -2,23 +2,27 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   name: "secondary-overlay"
+  namespace: asifm-test
 spec:
-  config: "{{ {
-    'cniVersion': '0.3.1',
-    'type': 'ovn-k8s-cni-overlay',
-    'name': 'secondary',
-    'netAttachDefName': 'asifm-test/secondary-overlay',
-    'ipam': {
-      'type': 'static',
-      'addresses': [
-        {
-          'address': 10.255.2.40/29,
-          'gateway': 10.255.2.41
-        }
-      ],
-      'routes': [
-        {'dst': '0.0.0.0/0'}
-      ]
-    },
-    'preserveDefaultVlan': false
-  } | to_json }}"
+  config: |-
+    {
+      "cniVersion": "0.3.1",
+      "type": "ovn-k8s-cni-overlay",
+      "name": "secondary",
+      "netAttachDefName": "asifm-test/secondary-overlay",
+      "ipam": {
+        "type": "static",
+        "addresses": [
+          {
+            "address": "10.255.2.40/29",
+            "gateway": "10.255.2.41"
+          }
+        ],
+        "routes": [
+          {
+            "dst": "0.0.0.0/0"
+          }
+        ]
+      },
+      "preserveDefaultVlan": false
+    }
