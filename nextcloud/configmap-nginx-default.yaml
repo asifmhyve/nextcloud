@@ -53,7 +53,7 @@ data:
             access_log /dev/stdout;
 
             # set max upload size and increase upload timeout:
-            client_max_body_size 512M;
+            client_max_body_size 522M;
             client_body_timeout 300s;
             fastcgi_buffers 64 4K;
 
